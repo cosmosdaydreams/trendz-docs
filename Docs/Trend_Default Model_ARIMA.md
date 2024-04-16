@@ -54,3 +54,6 @@ Trendz Analytics provides built-in instruments for time-series prediction. All n
     * Since we are having issues with default model result, prediction results is not available for now.
     * Lower Vertical Sealing Temperature.
     * Upper Vertical Sealing Temperature.
+
+## Conclusion
+By following these steps, you can leverage the Prophet model in Trendz Analytics for accurate time series forecasting. For more details, refer to the [Trendz Analytics Documentation ](https://thingsboard.io/docs/trendz/). 
