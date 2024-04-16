@@ -38,11 +38,35 @@ Trendz Analytics provides built-in instruments for time-series prediction. All n
 3. Forecasting with ARIMA:
     * Visualize data in **Line**
 
-    * Enable the **Prediction** checkbox for the forecast field, as shown in the image marked with a green box.
+    * Enable the **Prediction** checkbox for the forecast field, as shown in the image marked with a green box then select **CUSTOM**. As you can see, there is script to define our custom ARIMA model here with (0,1,1) since its best and most optimal configuration for our model (used autoarima library).
 
         ![ARIMA Custom Configuration](<../img/ARIMA_Custom Configuration.png>)
 
-    * Select **ARIMA** as the prediction model or method.
+    * You can see script that we used below:
+      ```
+      import pandas as pd
+      from statsmodels.tsa.arima.model import ARIMA
+
+      print(f"inputX: {inputX}")
+      print(f"inputY: {inputY}")
+      print(f"outputX: {outputX}")
+
+      df = pd.DataFrame() 
+      df['ds']= pd.to_datetime(inputX, unit='ms')
+      df['y']= inputY
+
+      model = ARIMA(df['y'], order=(1,1,1))
+      model_fit = model.fit()
+
+      start_index = len(df)
+      end_index = start_index + len(outputX) - 1
+
+      forecast = model_fit.predict(start=start_index, end=end_index)
+      outputY = forecast.tolist()
+
+      print(f"result: {outputY}")
+      return outputY
+      ```
 
     * Set the **Prediction Unit** to days
 
@@ -64,8 +88,8 @@ Trendz Analytics provides built-in instruments for time-series prediction. All n
 
         | Temperature | MAE | MSE | RMSE | MAPE |
         |:---:|:---:|:---:|:---:|:---:|
-        | Lower Vertical | 33.75 | 1401.16 | 37.43 | 17.33 |
-        | Upper Vertical | 32.08 | 1335.25 | 36.54 | 17.94 |
+        | Lower Vertical | 33.88 | 2172.13 | 46.61 | 20.09 |
+        | Upper Vertical | 37.67 | 2499.42 | 49.99 | 22.87 |
 
 
         Here's the link for more details [Metrics Evaluation in GColab](https://colab.research.google.com/drive/15g8zCkCk3VMAwUm4ffNqKUIpTZAc0wIt?usp=sharing)
